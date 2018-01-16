@@ -1,1 +1,51 @@
 #!/bin/bash
+clear
+user=$(whoami)
+if [ "$user" == "root" ];
+then
+  echo -e "Oops it looks like you ran the program as root"
+  echo -e "Next time run the program as another user or don't use sudo in front of ./mypy"
+  echo -e "[*]Exiting[*]"
+  exit
+fi
+clear
+if [[ "$XDG_CURRENT_DESKTOP" = "" ]];
+then
+  desktop=$(echo "$XDG_DATA_DIRS" | sed 's/.*\(xfce\|kde\|gnome\).*/\1/')
+else
+  desktop=$XDG_CURRENT_DESKTOP
+fi
+
+desktop=${desktop,,}
+if [[ "$desktop" = "gnome" ]];
+then
+  terminal=$"gnome-terminal --"
+else
+  terminal-$"xterm -e"
+fi
+
+echo -e "\e[1;33m   ▄▄▄▄███▄▄▄▄   ▄██   ▄      ▄███████▄ ▄██   ▄   \\n ▄██▀▀▀███▀▀▀██▄ ███   ██▄   ███    ███ ███   ██▄ \\n ███   ███   ███ ███▄▄▄███   ███    ███ ███▄▄▄███ \\n ███   ███   ███ ▀▀▀▀▀▀███   ███    ███ ▀▀▀▀▀▀███ \\n ███   ███   ███ ▄██   ███ ▀█████████▀  ▄██   ███ \\n ███   ███   ███ ███   ███   ███        ███   ███ \\n ███   ███   ███ ███   ███   ███        ███   ███ \\n  ▀█   ███   █▀   ▀█████▀   ▄████▀       ▀█████▀ "
+echo -e "\\n                     A learning experience by Elodie Tscharke\\n\\n"
+echo -e "\\nOptions:\\n\\n1. Begin Learning\\n2. Set up (run if this is your first time using the program)\\n3. About\\n4. Credits\\n0. Exit\\n"
+printf "\\ "
+read op
+
+if [[ "$op" == "0" ]];
+then
+  clear
+  echo -e "[*]Exiting[*]"
+  exit
+elif [[ "$op" == "4" ]];
+then
+  ./credits.sh
+else
+  if [[ "$op" == "3" ]];
+  then
+    echo -e "For more informtion please visit our website at - mypy.tk -"
+    echo -e "\\n Press [ENTER] to continue"
+    read thisvariablesnamedoesntmatteratallsoheckoff
+    ./mypy
+  elif [[ "$op" == "2" ]];
+  then
+    ./
+fi
